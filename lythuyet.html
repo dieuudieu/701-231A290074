@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Trả lời lý thuyết | Đề thi số 1
+  </title>
+  <link defer="" href="css/style.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header>
+   <div class="wrap">
+    <h1>
+     ĐỀ THI KẾT THÚC HỌC PHẦN
+    </h1>
+    <p>
+     Website thực hành HTML • CSS • JavaScript
+    </p>
+   </div>
+  </header>
+  <nav aria-label="Menu chính">
+   <div class="wrap menu">
+    <a href="index.html">
+     Trang chủ
+    </a>
+    <a href="baitap01.html">
+     Bài 1
+    </a>
+    <a href="baitap02.html">
+     Bài 2
+    </a>
+    <a href="baitap03.html">
+     Bài 3
+    </a>
+    <a href="lythuyet.html">
+     Lý thuyết
+    </a>
+    <a href="baitap22.html">
+     Bài 22
+    </a>
+    <a href="baitap23.html">
+     Bài 23
+    </a>
+    <a href="about.html">
+     Điểm danh
+    </a>
+    <a href="contact.html">
+     Liên hệ
+    </a>
+   </div>
+  </nav>
+  <main class="wrap">
+   <section class="heading">
+    <span class="eyebrow">
+     PHẦN 1 · 40 ĐIỂM
+    </span>
+    <h2>
+     Trả lời lý thuyết
+    </h2>
+   </section>
+   <article class="panel theory">
+    <h3>
+     Câu 1. position: absolute và relative
+    </h3>
+    <p>
+     <code>
+      position: relative
+     </code>
+     dịch chuyển phần tử so với vị trí ban đầu và vẫn giữ chỗ trong bố cục.
+     <code>
+      position: absolute
+     </code>
+     đưa phần tử ra khỏi luồng bố cục và định vị theo khối chứa được xác định bởi tổ tiên có position khác static (nếu có).
+    </p>
+    <pre><code>.product { position: relative; }
+.badge { position: absolute; top: 8px; right: 8px; }</code></pre>
+    <p>
+     Ví dụ: thẻ sản phẩm dùng relative, nhãn giảm giá dùng absolute nằm ở góc trên. Để responsive, kết hợp max-width, Grid/Flexbox và media queries; tránh tọa độ cố định làm chồng chéo trên màn hình nhỏ. Hai thuộc tính không ảnh hưởng trực tiếp đến deploy hosting nhưng ảnh hưởng giao diện trên các thiết bị.
+    </p>
+   </article>
+   <article class="panel theory">
+    <h3>
+     Câu 2. Domain, hosting và DNS
+    </h3>
+    <p>
+     Quy trình: (1) mua hoặc đăng ký tên miền; (2) chọn hosting; (3) upload file HTML/CSS/JS hoặc kết nối Git; (4) cấu hình DNS theo hướng dẫn của nhà cung cấp; (5) bật HTTPS và kiểm tra trên trình duyệt.
+    </p>
+    <p>
+     DNS phân giải tên miền đến đích thích hợp: bản ghi A trỏ tới IPv4, CNAME trỏ tên miền sang một tên miền khác. GitHub Pages và Netlify hỗ trợ deploy website tĩnh mà không phải tự vận hành server.
+    </p>
+    <p>
+     Rủi ro: không bật HTTPS, để lộ API key trong JavaScript, cấu hình DNS sai, phụ thuộc thư viện lỗi thời hoặc cấu hình domain trỏ đến dịch vụ không còn kiểm soát. Cần quản lý tài khoản bằng xác thực mạnh, bật HTTPS và không đưa bí mật vào mã frontend.
+    </p>
+   </article>
+   <article class="panel theory">
+    <h3>
+     Câu 3. let, const và var
+    </h3>
+    <p>
+     <code>
+      var
+     </code>
+     có function scope, được hoisting và khởi tạo undefined; có thể khai báo lại và gán lại.
+     <code>
+      let
+     </code>
+     và
+     <code>
+      const
+     </code>
+     có block scope, được hoisting nhưng không thể truy cập trước khai báo vì Temporal Dead Zone.
+     <code>
+      let
+     </code>
+     cho phép gán lại,
+     <code>
+      const
+     </code>
+     không cho gán lại biến (nhưng nội dung object vẫn có thể thay đổi).
+    </p>
+    <pre><code>console.log(a); // undefined
+var a = 10;
+console.log(b); // ReferenceError
+let b = 20;</code></pre>
+    <p>
+     Để debug, mở Chrome DevTools bằng F12, xem lỗi tại Console, chọn file trong Sources, đặt breakpoint và quan sát biến ở Scope. Ưu tiên const, dùng let khi cần gán lại và hạn chế var.
+    </p>
+   </article>
+   <article class="panel theory">
+    <h3>
+     Câu 4. Event Delegation
+    </h3>
+    <p>
+     Event Delegation là kỹ thuật đặt một event listener trên phần tử cha và dùng cơ chế bubbling để xử lý sự kiện phát sinh từ các phần tử con, kể cả phần tử được thêm sau.
+    </p>
+    <pre><code>const list = document.querySelector('#list');
+list.addEventListener('click', function(e) {
+  if (e.target.matches('li')) e.target.remove();
+});</code></pre>
+    <p>
+     Ví dụ danh sách công việc động: chỉ cần một listener trên ul để xóa li được nhấp. Kỹ thuật này giảm số lượng listener, tiết kiệm bộ nhớ, dễ bảo trì; kết hợp HTML tạo cấu trúc danh sách và CSS dùng :hover để thể hiện trạng thái tương tác.
+    </p>
+   </article>
+  </main>
+  <script defer="" src="js/script.js">
+  </script>
+ </body>
+</html>
